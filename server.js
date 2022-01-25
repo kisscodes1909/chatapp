@@ -12,7 +12,7 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
-const dbUrl = "mongodb+srv://kisscodes1909:0914145271@chatapplication.nqfje.mongodb.net/chatApplication?retryWrites=true&w=majority";
+const dbUrl = process.env.MONGODB_URI;;
 
 const Message = mongoose.model('Message', {
     name: String,
