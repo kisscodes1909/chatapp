@@ -5,6 +5,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const mongoose = require('mongoose');
 const { send, sendStatus } = require('express/lib/response');
+const port = process.env.PORT || 1234;
 
 
 app.use(express.static(__dirname));
@@ -22,6 +23,8 @@ const messages = [
     {name: "John", message: "Hello"},
     {name: "Jane", message: "Hi"}
 ];
+
+
 
 app.get('/messages', (req, res) => {
     Message.find({}, (err, message) => {
@@ -57,6 +60,6 @@ mongoose.connect(dbUrl, (error)=>{
     console.log(error);
 });
 
-http.listen(3000, ()=>{
-    console.log('Server is running POST 3000');
+http.listen(port, ()=>{
+    console.log(`Server is running POST ${port}`);
 });
