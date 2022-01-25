@@ -55,7 +55,7 @@
         }
 
         function getMessage(displayMessage) {
-            $.get('http://localhost:3000/messages', (messages)=>{
+            $.get('https://chat-app-nodejs1909.herokuapp.com/messages', (messages)=>{
                 messages.forEach(message => {
                     displayMessage(message)
                 });
@@ -63,7 +63,7 @@
         }
 
         function postMessage(message) {
-            $.post('http://localhost:3000/messages', message);
+            $.post('https://chat-app-nodejs1909.herokuapp.com/messages', message);
         }
     </script> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
