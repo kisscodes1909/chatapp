@@ -1,0 +1,44 @@
+<%- include('./component/header'); -%>
+<%- include('./component/navigation'); -%>
+<section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+                <% if (status.code === 400) { %>
+                    <ol>
+                        <% for( let index = 0; index < status.messages.length; index++ ) { %>
+                            <li class="alert alert-danger" role="alert"> <%- status.messages[index]; %> </li>
+                        <% } %>
+                    </ol>
+                <% } else if (status.code === 200) { %>
+                    <li class="alert alert-success" role="alert"> <%- status.messages[0]; %> </li>
+                <% } %>
+
+                <form method="POST" action="/user/login">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                      <input required name="email" type="email" id="form1Example13" class="form-control form-control-lg" />
+                      <label class="form-label" for="form1Example13">Email address</label>
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <input name="password" required type="password" id="form1Example23" class="form-control form-control-lg" />
+                      <label class="form-label" for="form1Example23">Password</label>
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<%- include('./component/footer'); -%>
