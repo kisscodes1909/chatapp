@@ -9,7 +9,9 @@ const mongoose = require('mongoose');
 const port = process.env.PORT || 1234;
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
-const nocache = require('nocache');
+//const nocache = require('nocache');
+const compression = require('compression')
+
 
 
 //app.set('etag', false);
@@ -17,8 +19,12 @@ const nocache = require('nocache');
 // setting engine template
 app.set('view engine', "ejs");
 app.use(express.static(__dirname + '/views', {
-    etag:true
+    maxAge: 3600000
 }));
+
+// Add compression
+app.use(compression())
+
 
 // Disable cache
 
