@@ -1,7 +1,7 @@
 const {addUser, getUserByEmail} = require('../model/user');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const {isUserLoggedIn} = require('../core-functions/user');
+const {generateUserAvatar} = require('../core-functions/user');
 
 function validateRegisterForm(data) {
     let errors = [];
@@ -60,9 +60,14 @@ const createNewUser = async (req, res, next) => {
     
     //Insert to database
     try {
-        // Hash pasword..
 
+        // Hash pasword..
         const hashPasword = await bcrypt.hash(formData.password, saltRounds);
+
+        // Generate random avatar
+
+        const avatar = await generateUserAvatar(formData.firstName);
+
 
         //console.log(hashPasword);
 
@@ -71,17 +76,27 @@ const createNewUser = async (req, res, next) => {
             lastname: formData.lastName,
             password: hashPasword,
             email: formData.email,
+            avatar
         });
 
-        status = {
-            code: 200,
-            messages: ['Register success, redirect...']
-        }
+        // Store user to session
+        req.session.user = response;
+
+        res.redirect('/');
+
+        // status = {
+        //     code: 200,
+        //     messages: ['Register success, redirect...']
+        // }
+
+        // //console.log(response);
+
+
         
-        res.render('register', {
-            status,
-            formData
-        });
+        // res.render('register', {
+        //     status,
+        //     formData
+        // });
     } catch (error) {
         console.log(error);
         res.sendStatus(500);

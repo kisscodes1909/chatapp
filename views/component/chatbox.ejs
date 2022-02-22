@@ -1,17 +1,15 @@
 <div class="container">
-    <br />
-    <div class="jumbotron">
-        <h1 class="display-4">Send Message</h1>
-        <br />
-
-        <input id="name" class="form-control" placeholder="Name" />
-        <br />
-
-        <textarea id="message" class="form-control" placeholder="Message"></textarea>
-        <br />
-
-        <button id="send" class="btn btn-success">Send</button>
-    </div>
-
-    <div id="messages"></div>
+    <!-- <div id="messages"></div> -->
+    <div class="card mb-5">
+        <div class="position-relative">
+            <div id="chat-messages-container" class="chat-messages-container p-4">
+                <div id="messages" class="chat-messages-innder"></div>
+            </div>   
+            <div class="flex-grow-0 py-3 px-4 border-top">
+                <div class="input-group">
+                    <textarea id="message" class="form-control" placeholder="Message"></textarea>
+                    <button id="send" class="btn btn-primary">Send</button>
+                </div>
+            </div>  
+    </div>  
 </div>

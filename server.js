@@ -9,11 +9,16 @@ const mongoose = require('mongoose');
 const port = process.env.PORT || 1234;
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
+const nocache = require('nocache');
 
+
+//app.set('etag', false);
 
 // setting engine template
 app.set('view engine', "ejs");
 app.use(express.static(__dirname + '/views'));
+
+// Disable cache
 
 // setting body params
 app.use(bodyParser.json());
@@ -24,6 +29,7 @@ const dbUrl = process.env.MONGODB_URI
 // setting route
 const messageRoute = require('./routes/messageRoutes');
 const userRoute = require('./routes/userRoute.js');
+const uploadRoute = require('./routes/uploadRoutes.js');
 
 // setting session cookie
 app.use(session({
@@ -43,6 +49,7 @@ app.use((req, res, next) => {
     //     lastname: 'Malachi',
     //     password: '$2b$10$Si./3.bhQsFEGD5nhUkKHuyN/g7CLMgPfSYSSYykGGCdNnbyKgGha',
     //     email: 'kisscodes1909@gmail.com',
+    //     avatar: '',
     //     __v: 0
     // }
 
@@ -69,6 +76,7 @@ app.use((req, res, next) => {
 // setting cookie 
 app.use(cookieParser());
 
+app.use(nocache());
 
 
 app.get('/', (req, res) => {
@@ -78,7 +86,7 @@ app.get('/', (req, res) => {
 
 app.use('/messages', messageRoute);
 app.use('/user', userRoute);
-
+app.use('/upload', uploadRoute);
 
 
 // setting io 

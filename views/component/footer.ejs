@@ -1,48 +1,132 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../js/jquery.waypoints.min.js"></script>
+
     <script>
-        
+
         const siteUrl = '<%= siteUrl; %>';
 
-        $(()=>{
-
+        $( async () => {
+            let page = 0;
 
             const socket = io();
+            
+            let timeToLoadMore = new Date();
 
-            getMessage((message)=>{
-                addMessage(message);
+            // Get messages;
+            let respGetMessage = await getMessage(timeToLoadMore);
+
+            // Time to load more messages;
+            timeToLoadMore = respGetMessage.timeToLoadMore;
+
+            // console.log(respGetMessage);
+
+            // console.log(timeToLoadMore);
+
+            // Render messages
+            messages = renderMessage(respGetMessage.messages);
+
+            //Init render message
+            jQuery("#messages").html(messages);
+
+            const waypoint = jQuery('#messages').waypoint({
+                handler: async function(direction) {
+                    if( direction === 'up') {
+
+                        if(!timeToLoadMore) return;
+
+                        page++;
+
+                        let respGetMessage = await getMessage(timeToLoadMore);
+
+                        // set time to load
+                        timeToLoadMore = respGetMessage.timeToLoadMore;
+
+                        oldMessage = renderMessage(respGetMessage.messages);
+
+                        jQuery("#messages").prepend(oldMessage);
+                    }
+                },
+                context: '#chat-messages-container',
             });
+
+
+            $("#send").on("click", () => {
+                //addMessage({name: "John", message: "Hello World!"});
+
+                // Validate send message action
+
+                if($("#message").val() === '' ) return;
+                
+                postMessage({message: $("#message").val()});
+
+                $("#message").val('');
+            });
+
+
+            $("#message").on('keypress', (e)=>{
+                if(e.which !== 13) return;
+                $("#send").trigger("click");
+                e.preventDefault();
+            });
+
 
             socket.on('message', addMessage);
-
-            $("#send").click(()=>{
-                //addMessage({name: "John", message: "Hello World!"});
-                let messsage = {
-                    name: $("#name").val(),
-                    message: $("#message").val()
-                }
-
-                postMessage(messsage)
-            });
         });
+        
 
-        function addMessage(message) {
-            $("#messages").append(`<h4> ${message.name} </h4> <p>${message.message}</p>`)
+  
+
+        function messageTemplate(message) {
+
+            const date = new Date(message.createAt);
+
+            const messagePosition = message.yourMessage === true ? 'chat-message-left' : 'chat-message-right';
+
+            message.createAt = date.toLocaleDateString('en-GB') + ' ' + date.toLocaleTimeString('en-US');
+             
+            const messageTemplate = `<div style="align-items: center;"  class="chat-message-left pb-4">
+                  <div>
+                     <img src="${message.avatar}" class="rounded-circle mr-1" alt="Chris Wood" width="50" height="50">
+                  </div>
+                  <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                     <div class="font-weight-bold mb-1">${message.name}</div>
+                     <div class="text-muted small text-nowrap mt-2">${message.createAt}</div>
+                     ${message.message}
+                  </div>
+               </div>`
+            return messageTemplate;
         }
 
-        function getMessage(displayMessage) {
-            console.log(`//${siteUrl}/messages`);
-            $.get(`//${siteUrl}/messages`, (messages)=>{
-                messages.forEach(message => {
-                    displayMessage(message)
-                });
+        function renderMessage(messages) {
+        
+            messages = messages.map((message)=>{
+                return messageTemplate(message);
             });
+
+            return messages;
+        }
+
+        function addMessage(message) {
+            $("#messages").append(messageTemplate(message))
+        }
+
+        async function getMessage(timeToLoadMore) {
+            try {
+                const resp = await $.get(`//${siteUrl}/messages`, {
+                    timeToLoadMore
+                });
+                return resp;
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         function postMessage(message) {
             $.post(`//${siteUrl}/messages`, message);
         }
+
     </script> 
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 </body>

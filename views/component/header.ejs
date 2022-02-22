@@ -11,7 +11,119 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/styles.css?v=2" rel="stylesheet" />
+    <link href="../css/styles.css?v=4" rel="stylesheet" />
     <script src="/socket.io/socket.io.js"node></script>
+    <script src="../js/jquery.waypoints.min.js"></script>
+
+    <style>
+
+.chat-online {
+  color: #34ce57
+}
+
+.chat-offline {
+  color: #e4606d
+}
+
+.chat-messages-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+  overflow-y: scroll;
+  max-height: 600px;
+}
+
+
+.chat-message-left,
+.chat-message-right {
+  display: flex;
+  flex-shrink: 0
+}
+
+.chat-message-left {
+  margin-right: auto
+}
+
+.chat-message-right {
+  flex-direction: row-reverse;
+  margin-left: auto
+}
+.py-3 {
+  padding-top: 1rem!important;
+  padding-bottom: 1rem!important;
+}
+.px-4 {
+  padding-right: 1.5rem!important;
+  padding-left: 1.5rem!important;
+}
+.flex-grow-0 {
+  flex-grow: 0!important;
+}
+.border-top {
+  border-top: 1px solid #dee2e6!important;
+}
+
+.font-weight-bold    { font-weight: 700; }
+
+.pl-3, .px-3 {
+    padding-left: 1rem!important;
+}
+.pr-3, .px-3 {
+    padding-right: 1rem!important;
+}
+.pb-2, .py-2 {
+    padding-bottom: 0.5rem!important;
+}
+.pt-2, .py-2 {
+    padding-top: 0.5rem!important;
+}
+.ml-3, .mx-3 {
+    margin-left: 1rem!important;
+}
+.flex-shrink-1 {
+    -ms-flex-negative: 1!important;
+    flex-shrink: 1!important;
+}
+
+.mr-3, .mx-3 {
+    margin-right: 1rem!important;
+}
+
+.rounded {
+    border-radius: 0.25rem!important;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+.border-top {
+    border-top: 1px solid #dee2e6!important;
+}
+
+@media (min-width: 992px) {
+    .d-lg-block {
+        display: block!important;
+    }
+}
+
+    .d-none {
+        display: none!important;
+    }
+    .border-bottom {
+        border-bottom: 1px solid #dee2e6!important;
+    }
+
+    </style>
     </head>
 <body>

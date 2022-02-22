@@ -5,6 +5,7 @@ const User = mongoose.model('User', {
     lastname: String,
     password: String,
     email: String,
+    avatar: String
 });
 
 const addUser = async (userData) => {
@@ -29,5 +30,5 @@ const getUserByEmail = async (email) => {
 
 module.exports = {
     addUser,
-    getUserByEmail
+    getUserByEmail,
 }
