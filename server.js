@@ -16,7 +16,9 @@ const nocache = require('nocache');
 
 // setting engine template
 app.set('view engine', "ejs");
-app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/views', {
+    etag:true
+}));
 
 // Disable cache
 
@@ -76,7 +78,7 @@ app.use((req, res, next) => {
 // setting cookie 
 app.use(cookieParser());
 
-app.use(nocache());
+//app.use(nocache());
 
 
 app.get('/', (req, res) => {

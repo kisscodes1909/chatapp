@@ -34,7 +34,12 @@
 
             const waypoint = jQuery('#messages').waypoint({
                 handler: async function(direction) {
+                    // if( direction === 'up') { 
+                    //     console.log('ok');
+                    // }
                     if( direction === 'up') {
+
+                        const oldMessageHeight = jQuery("#messages").height();
 
                         if(!timeToLoadMore) return;
 
@@ -48,9 +53,12 @@
                         oldMessage = renderMessage(respGetMessage.messages);
 
                         jQuery("#messages").prepend(oldMessage);
+
+                        $("#chat-messages-container").scrollTop( jQuery("#messages").height() - oldMessageHeight );
                     }
                 },
                 context: '#chat-messages-container',
+                offset: '0%'
             });
 
 
