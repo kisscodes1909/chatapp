@@ -43,15 +43,15 @@ app.use((req, res, next) => {
 
     // Fake session
 
-    req.session.user = {
-        _id: '620f5188185c1e12e3df8e2a',
-        firstname: 'Yardley',
-        lastname: 'Malachi',
-        password: '$2b$10$Si./3.bhQsFEGD5nhUkKHuyN/g7CLMgPfSYSSYykGGCdNnbyKgGha',
-        email: 'kisscodes1909@gmail.com',
-        avatar: '',
-        __v: 0
-    }
+    // req.session.user = {
+    //     _id: '620f5188185c1e12e3df8e2a',
+    //     firstname: 'Yardley',
+    //     lastname: 'Malachi',
+    //     password: '$2b$10$Si./3.bhQsFEGD5nhUkKHuyN/g7CLMgPfSYSSYykGGCdNnbyKgGha',
+    //     email: 'kisscodes1909@gmail.com',
+    //     avatar: '',
+    //     __v: 0
+    // }
 
     const {user} = req.session;
 
