@@ -24,7 +24,7 @@ const getMessages = async (timeToLoadMore = new Date()) => {
     const perPage = 5;
     
     try {
-        const messages = await Message.find({createAt:{$lte: timeToLoadMore}})
+        const messages = await Message.find({createAt:{$lt: timeToLoadMore}})
         .limit(perPage)
         .sort({createAt: 'desc'})
         .lean(); 

@@ -114,6 +114,11 @@ const login = async function(req, res, next) {
             code: 400,
             messages: ['Your email is not exist! Please register a new account.']
         }
+
+        res.render('login', {
+            status,
+            formData
+        });
     }
     
     // Compare password

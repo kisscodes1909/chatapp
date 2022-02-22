@@ -30,6 +30,8 @@
             //Init render message
             jQuery("#messages").html(messages);
 
+            $("#chat-messages-container").scrollTop(jQuery("#chat-messages-container")[0].scrollHeight);
+
             const waypoint = jQuery('#messages').waypoint({
                 handler: async function(direction) {
                     if( direction === 'up') {
